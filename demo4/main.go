@@ -1,29 +1,31 @@
 package main
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
-	"k8s.io/client-go/kubernetes"
 	"github.com/owenliang/k8s-client-go/common"
 	"io/ioutil"
-	apps_v1beta1 "k8s.io/api/apps/v1beta1"
-	"encoding/json"
-	yaml2 "k8s.io/apimachinery/pkg/util/yaml"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
-	"time"
-	"strconv"
+	apps_v1 "k8s.io/api/apps/v1"
 	core_v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	yaml2 "k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/client-go/kubernetes"
+	"strconv"
+	"time"
 )
 
 func main() {
 	var (
-		clientset *kubernetes.Clientset
-		deployYaml []byte
-		deployJson []byte
-		deployment  = apps_v1beta1.Deployment{}
-		k8sDeployment *apps_v1beta1.Deployment
-		podList *core_v1.PodList
-		pod core_v1.Pod
-		err error
+		clientset     *kubernetes.Clientset
+		deployYaml    []byte
+		deployJson    []byte
+		deployment    = apps_v1.Deployment{}
+		k8sDeployment *apps_v1.Deployment
+		podList       *core_v1.PodList
+		pod           core_v1.Pod
+		err           error
 	)
 
 	// 初始化k8s客户端
@@ -49,15 +51,15 @@ func main() {
 	// 给Pod添加label
 	deployment.Spec.Template.Labels["deploy_time"] = strconv.Itoa(int(time.Now().Unix()))
 
- 	// 更新deployments
-	if _, err = clientset.AppsV1beta1().Deployments("default").Update(&deployment); err != nil {
+	// 更新deployments
+	if _, err = clientset.AppsV1().Deployments("default").Update(context.TODO(), &deployment, meta_v1.UpdateOptions{}); err != nil {
 		goto FAIL
 	}
 
 	// 等待更新完成
 	for {
 		// 获取k8s中deployment的状态
-		if k8sDeployment, err = clientset.AppsV1beta1().Deployments("default").Get(deployment.Name, v1.GetOptions{}); err != nil {
+		if k8sDeployment, err = clientset.AppsV1().Deployments("default").Get(context.TODO(), deployment.Name, meta_v1.GetOptions{}); err != nil {
 			goto RETRY
 		}
 
@@ -66,21 +68,21 @@ func main() {
 			k8sDeployment.Status.Replicas == *(k8sDeployment.Spec.Replicas) &&
 			k8sDeployment.Status.AvailableReplicas == *(k8sDeployment.Spec.Replicas) &&
 			k8sDeployment.Status.ObservedGeneration == k8sDeployment.Generation {
-				// 滚动升级完成
-				break
+			// 滚动升级完成
+			break
 		}
 
 		// 打印工作中的pod比例
 		fmt.Printf("部署中：(%d/%d)\n", k8sDeployment.Status.AvailableReplicas, *(k8sDeployment.Spec.Replicas))
 
-		RETRY:
-		time.Sleep(1 * time.Second)
+	RETRY:
+		time.Sleep(3 * time.Second)
 	}
 
 	fmt.Println("部署成功!")
 
 	// 打印每个pod的状态(可能会打印出terminating中的pod, 但最终只会展示新pod列表)
-	if podList, err = clientset.CoreV1().Pods("default").List(v1.ListOptions{LabelSelector: "app=nginx", IncludeUninitialized: false}); err == nil {
+	if podList, err = clientset.CoreV1().Pods("default").List(context.TODO(), v1.ListOptions{LabelSelector: "app=nginx"}); err == nil {
 		for _, pod = range podList.Items {
 			podName := pod.Name
 			podStatus := string(pod.Status.Phase)
@@ -96,8 +98,8 @@ func main() {
 
 				// condition有错误信息
 				for _, cond := range pod.Status.Conditions {
-					if cond.Type == core_v1.PodReady {	// POD就绪状态
-						if cond.Status != core_v1.ConditionTrue {	// 失败
+					if cond.Type == core_v1.PodReady { // POD就绪状态
+						if cond.Status != core_v1.ConditionTrue { // 失败
 							podStatus = cond.Reason
 						}
 						goto KO
@@ -108,7 +110,7 @@ func main() {
 				podStatus = "Unknown"
 			}
 
-			KO:
+		KO:
 			fmt.Printf("[name:%s status:%s]\n", podName, podStatus)
 		}
 	}

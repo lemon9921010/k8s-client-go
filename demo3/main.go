@@ -1,25 +1,27 @@
 package main
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
-	"k8s.io/client-go/kubernetes"
 	"github.com/owenliang/k8s-client-go/common"
 	"io/ioutil"
-	apps_v1beta1 "k8s.io/api/apps/v1beta1"
-	"encoding/json"
-	yaml2 "k8s.io/apimachinery/pkg/util/yaml"
+	apps_v1 "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	yaml2 "k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/client-go/kubernetes"
 )
 
 func main() {
 	var (
-		clientset *kubernetes.Clientset
-		deployYaml []byte
-		deployJson []byte
-		deployment  = apps_v1beta1.Deployment{}
-		containers []v1.Container
+		clientset      *kubernetes.Clientset
+		deployYaml     []byte
+		deployJson     []byte
+		deployment     = apps_v1.Deployment{}
+		containers     []v1.Container
 		nginxContainer v1.Container
-		err error
+		err            error
 	)
 
 	// 初始化k8s客户端
@@ -49,9 +51,9 @@ func main() {
 
 	// 修改podTemplate, 定义container列表
 	deployment.Spec.Template.Spec.Containers = containers
-	
+
 	// 更新deployment
-	if _, err = clientset.AppsV1beta1().Deployments("default").Update(&deployment); err != nil {
+	if _, err = clientset.AppsV1().Deployments("default").Update(context.TODO(), &deployment, metav1.UpdateOptions{}); err != nil {
 		goto FAIL
 	}
 
