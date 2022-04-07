@@ -19,8 +19,8 @@ limitations under the License.
 package mycompany
 
 import (
-	internalinterfaces "github.com/owenliang/k8s-client-go/demo10/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "github.com/owenliang/k8s-client-go/demo10/pkg/client/informers/externalversions/nginx_controller/v1"
+	internalinterfaces "k8s-client-go/demo10/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "k8s-client-go/demo10/pkg/client/informers/externalversions/nginx_controller/v1"
 )
 
 // Interface provides access to each of this group's versions.

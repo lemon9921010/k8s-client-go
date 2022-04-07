@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/owenliang/k8s-client-go/common"
-	"k8s.io/client-go/rest"
 	"fmt"
-	"github.com/owenliang/k8s-client-go/demo9/pkg/client/clientset/versioned"
+	"github.com/owenliang/k8s-client-go/common"
+	nginx_v1 "k8s-client-go/demo9/pkg/apis/nginx_controller/v1"
+	"k8s-client-go/demo9/pkg/client/clientset/versioned"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
-	nginx_v1 "github.com/owenliang/k8s-client-go/demo9/pkg/apis/nginx_controller/v1"
+	"k8s.io/client-go/rest"
 )
 
 func main() {
 	var (
-		restConf *rest.Config
+		restConf     *rest.Config
 		crdClientset *versioned.Clientset
-		nginx *nginx_v1.Nginx
-		err error
+		nginx        *nginx_v1.Nginx
+		err          error
 	)
 
 	// 读取admin.conf, 生成客户端基本配置

@@ -19,9 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/owenliang/k8s-client-go/demo10/pkg/client/clientset/versioned"
-	mycompanyv1 "github.com/owenliang/k8s-client-go/demo10/pkg/client/clientset/versioned/typed/nginx_controller/v1"
-	fakemycompanyv1 "github.com/owenliang/k8s-client-go/demo10/pkg/client/clientset/versioned/typed/nginx_controller/v1/fake"
+	clientset "k8s-client-go/demo10/pkg/client/clientset/versioned"
+	mycompanyv1 "k8s-client-go/demo10/pkg/client/clientset/versioned/typed/nginx_controller/v1"
+	fakemycompanyv1 "k8s-client-go/demo10/pkg/client/clientset/versioned/typed/nginx_controller/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

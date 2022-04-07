@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	v1 "github.com/owenliang/k8s-client-go/demo9/pkg/client/clientset/versioned/typed/nginx_controller/v1"
+	v1 "k8s-client-go/demo9/pkg/client/clientset/versioned/typed/nginx_controller/v1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )

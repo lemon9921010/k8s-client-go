@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	nginxcontrollerv1 "github.com/owenliang/k8s-client-go/demo9/pkg/apis/nginx_controller/v1"
+	nginxcontrollerv1 "k8s-client-go/demo9/pkg/apis/nginx_controller/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/owenliang/k8s-client-go/demo10/pkg/apis/nginx_controller/v1"
+	v1 "k8s-client-go/demo10/pkg/apis/nginx_controller/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )

@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/owenliang/k8s-client-go/demo9/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/owenliang/k8s-client-go/demo9/pkg/client/informers/externalversions/internalinterfaces"
-	nginxcontroller "github.com/owenliang/k8s-client-go/demo9/pkg/client/informers/externalversions/nginx_controller"
+	versioned "github.com/owenliang/k8s-client-go/k8s-client-go/demo9/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/owenliang/k8s-client-go/k8s-client-go/demo9/pkg/client/informers/externalversions/internalinterfaces"
+	nginxcontroller "github.com/owenliang/k8s-client-go/k8s-client-go/demo9/pkg/client/informers/externalversions/nginx_controller"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

@@ -1,29 +1,29 @@
 package controller
 
 import (
-	"github.com/owenliang/k8s-client-go/demo10/pkg/client/clientset/versioned"
-	"github.com/owenliang/k8s-client-go/demo10/pkg/client/informers/externalversions/nginx_controller/v1"
-	"k8s.io/client-go/tools/cache"
 	"fmt"
-	"k8s.io/client-go/util/workqueue"
+	"k8s-client-go/demo10/pkg/client/clientset/versioned"
+	"k8s-client-go/demo10/pkg/client/informers/externalversions/nginx_controller/v1"
 	core_v1 "k8s.io/client-go/informers/core/v1"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/tools/cache"
+	"k8s.io/client-go/util/workqueue"
 )
 
 type NginxController struct {
-	Clientset *kubernetes.Clientset
-	CrdClientset *versioned.Clientset
-	PodInformer core_v1.PodInformer
+	Clientset     *kubernetes.Clientset
+	CrdClientset  *versioned.Clientset
+	PodInformer   core_v1.PodInformer
 	NginxInformer v1.NginxInformer
 
 	NginxWorkqueue workqueue.RateLimitingInterface
-	PodWorkqueue workqueue.RateLimitingInterface
+	PodWorkqueue   workqueue.RateLimitingInterface
 }
 
 func (nginxController *NginxController) Start() (err error) {
 	var (
 		stopCh = make(chan struct{})
-		i int
+		i      int
 		syncOk bool
 	)
 

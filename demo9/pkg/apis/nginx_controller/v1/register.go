@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/owenliang/k8s-client-go/demo9/pkg/apis/nginx_controller"
+	"k8s-client-go/demo9/pkg/apis/nginx_controller"
 )
 
 // SchemeGroupVersion is group version used to register these objects

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"k8s.io/klog"
 	"flag"
+	"k8s.io/klog"
 )
 
 // k8s所有代码都会使用klog库, 所以我们需要配置一下klog, 让k8s sdk内部日志输出到合适的文件中
@@ -34,6 +34,6 @@ func main() {
 	defer klog.Flush()
 
 	// 尝试这样启动程序, 可以看到所有日志
-	// ./demo8 -log_dir=./log -log_dir=log -v 6
+	// ./demo8  -log_dir=log -v 6
 	return
 }

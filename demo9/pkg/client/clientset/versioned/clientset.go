@@ -19,7 +19,7 @@ limitations under the License.
 package versioned
 
 import (
-	mycompanyv1 "github.com/owenliang/k8s-client-go/demo9/pkg/client/clientset/versioned/typed/nginx_controller/v1"
+	mycompanyv1 "k8s-client-go/demo9/pkg/client/clientset/versioned/typed/nginx_controller/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
