@@ -112,7 +112,7 @@ func wsHandler(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// 获取pods
+	// 获取pods 253.12 d589cb986-blksr
 	podName = "nginx-deployment-d589cb986-blksr"
 	podNs = "default"
 	containerName = "nginx"

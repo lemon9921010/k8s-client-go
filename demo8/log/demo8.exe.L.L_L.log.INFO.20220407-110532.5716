@@ -1,0 +1,6 @@
+Log file created at: 2022/04/07 11:05:32
+Running on machine: L
+Binary: Built with gc go1.17.8 for windows/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0407 11:05:32.692591    5716 main.go:28] hello word
+I0407 11:05:32.698701    5716 main.go:31] 需要-v 5或者以上才可以打印出来!

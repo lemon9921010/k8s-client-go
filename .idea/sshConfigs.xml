@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" id="ae3a4e6f-4a11-4c5e-9468-2a87fc2e8751" customName="ansible-dev" nameFormat="CUSTOM" useOpenSSHConfig="true">
+        <option name="customName" value="ansible-dev" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
